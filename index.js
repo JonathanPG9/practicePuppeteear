@@ -8,7 +8,7 @@ const fs = require('fs');
     await page.goto('https://www.amazon.com/',{
       waitUntil: 'networkidle2',
     });
-    await page.screenshot({path: 'test1.jpg'});
+    await page.screenshot({path: 'test.jpg'});
     const html = await page.content()
     fs.writeFile('test.html',html,(err) => {
       if(err) return err
