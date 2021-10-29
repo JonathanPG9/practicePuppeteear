@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const data = require('./urls.json');
 const path = require('path');
-const dist = path.join(__dirname,"/","dist");
+const dist = path.join(__dirname,'/','dist');
 
 ( async () => {
   try {
@@ -16,12 +16,12 @@ const dist = path.join(__dirname,"/","dist");
       let html = await page.content()
       fs.writeFile(`${data.urls[i].name}.html`,html,(err) => {
         if(err) throw err;
-        console.log(`${data.urls[i].name}.html created`)
+        console.log(`${data.urls[i].name}.html created`);
         fs.rename(__dirname + `/${data.urls[i].name}.html`,dist + `/${data.urls[i].name}.html`, (err) => {
           if (err) throw err;
           console.log(`Move ${data.urls[i].name}.html complete.`);
         });
-      })
+      });
       if(i === data.urls.length - 1) return await browser.close();
     }
   }
