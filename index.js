@@ -13,6 +13,9 @@ const dist = path.join(__dirname,'/','dist');
       await page.goto(data.urls[i].url,{
           waitUntil: 'networkidle2',
         });
+      if(document.querySelector('.nameWallInner svelte-1wn2uoh')) {
+        await scrollToElement('.nameWrap');
+      }
       let html = await page.content()
       fs.writeFile(`${data.urls[i].name}.html`,html,(err) => {
         if(err) throw err;
@@ -29,3 +32,21 @@ const dist = path.join(__dirname,'/','dist');
     return err
   }
 })();
+
+async function autoScroll(page){
+  await page.evaluate(async () => {
+      await new Promise((resolve, reject) => {
+          var totalHeight = 0;
+          var distance = 100;
+          var timer = setInterval(() => {
+              var scrollHeight = document.body.scrollHeight;
+              window.scrollBy(0, distance);
+              totalHeight += distance;
+              if(totalHeight >= scrollHeight){
+                  clearInterval(timer);
+                  resolve();
+              }
+          }, 400);
+      });
+  });
+}
