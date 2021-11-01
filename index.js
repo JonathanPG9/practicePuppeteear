@@ -6,7 +6,7 @@ const dist = path.join(__dirname,'/','dist');
 
 ( async () => {
   try {
-    const browser = await puppeteer.launch({headless: true,defaultViewport: null});
+    const browser = await puppeteer.launch({headless: false, defaultViewport: null});
     const page = await browser.newPage();
     const dataLength = data.urls.length;
     for (let i = 0; i < dataLength; i++) {
