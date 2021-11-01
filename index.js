@@ -6,12 +6,12 @@ const dist = path.join(__dirname,'/','dist');
 
 ( async () => {
   try {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({headless: true,defaultViewport: null});
     const page = await browser.newPage();
     const dataLength = data.urls.length;
     for (let i = 0; i < dataLength; i++) {
         await page.goto(data.urls[i].url,{
-          waitUntil: 'networkidle0',
+          waitUntil: 'networkidle2',
         });
         await page.evaluate(() => {
           const nameBoxWrap = document.querySelector(".nameBoxWrap");
@@ -22,7 +22,11 @@ const dist = path.join(__dirname,'/','dist');
           }
           if(tableContainer) {
             const nodeList =  document.querySelectorAll(".table-container-desktop")
-            tableContainer.removeChild(tableContainer.lastChild)
+            let child = tableContainer.lastElementChild; 
+            while ([...nodeList].length >= 7) {
+                tableContainer.removeChild(child);
+                child = tableContainer.lastElementChild;
+            }
           }
           return;
         });
