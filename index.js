@@ -10,13 +10,23 @@ const dist = path.join(__dirname,'/','dist');
     const page = await browser.newPage();
     const dataLength = data.urls.length;
     for (let i = 0; i < dataLength; i++) {
-      await page.goto(data.urls[i].url,{
-          waitUntil: 'networkidle2',
+        await page.goto(data.urls[i].url,{
+          waitUntil: 'networkidle0',
         });
-      if(document.querySelector('.nameWallInner svelte-1wn2uoh')) {
-        await scrollToElement('.nameWrap');
-      }
-      let html = await page.content()
+        await page.evaluate(() => {
+          const nameBoxWrap = document.querySelector(".nameBoxWrap");
+          const tableContainer = document.querySelector(".table-container-desktop")
+          if(nameBoxWrap) {
+            const root = document.getElementById("root")
+            root.removeChild(root.firstChild)
+          }
+          if(tableContainer) {
+            const nodeList =  document.querySelectorAll(".table-container-desktop")
+            tableContainer.removeChild(tableContainer.lastChild)
+          }
+          return;
+        });
+      const html = await page.content();
       fs.writeFile(`${data.urls[i].name}.html`,html,(err) => {
         if(err) throw err;
         console.log(`${data.urls[i].name}.html created`);
