@@ -1,10 +1,10 @@
 const fs = require('fs'),
-          data = require('./urls.json'),
-          path = require('path'),
-          dist = path.join(__dirname,'/dist'),
-          exec = require('child_process').exec,
-          urls = data.urls,
-          dataLength = data.urls.length;
+      data = require('./urls.json'),
+      path = require('path'),
+      dist = path.join(__dirname,'/dist'),
+      exec = require('child_process').exec,
+      urls = data.urls,
+      dataLength = data.urls.length;
 
 (() => {
   for (let i = 0; i < dataLength; i++) {
