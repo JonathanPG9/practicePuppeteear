@@ -13,13 +13,9 @@ const fs = require('fs'),
     exec(command, (err, stdout) => {
       if(err) throw err;
       console.log(`stdout: ${stdout}`);
-    fs.writeFile(`${name}.html`, stdout, (err) => {
+    fs.writeFile(`${dist}/${name}.html`, stdout, (err) => {
       if(err) throw err;
       console.log(`${name}.html created`);
-      fs.rename(`${__dirname}/${name}.html`,`${dist}/${name}.html`, (err) => {
-        if(err) throw err;
-        console.log(`Move ${name}.html complete.`);
-        });
       });
     }); 
   };
