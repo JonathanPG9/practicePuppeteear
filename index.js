@@ -1,23 +1,24 @@
-const fs = require('fs');
-const data = require('./urls.json');
-const path = require('path');
-const dist = path.join(__dirname,'/dist');
-const exec = require('child_process').exec;
-const urls = data.urls;
-const dataLength = data.urls.length;
+const fs = require('fs'),
+          data = require('./urls.json'),
+          path = require('path'),
+          dist = path.join(__dirname,'/dist'),
+          exec = require('child_process').exec,
+          urls = data.urls,
+          dataLength = data.urls.length;
 
 (() => {
   for (let i = 0; i < dataLength; i++) {
-    const command = `curl ${urls[i]?.url}`;
+    const command = `curl ${urls[i]?.url}`
+    const name = urls[i].name;
     exec(command, (err, stdout) => {
       if(err) throw err;
       console.log(`stdout: ${stdout}`);
-    fs.writeFile(`${urls[i].name}.html`, stdout, (err) => {
+    fs.writeFile(`${name}.html`, stdout, (err) => {
       if(err) throw err;
-      console.log(`${urls[i].name}.html created`);
-      fs.rename(`${__dirname}/${urls[i].name}.html`,`${dist}/${urls[i].name}.html`, (err) => {
+      console.log(`${name}.html created`);
+      fs.rename(`${__dirname}/${name}.html`,`${dist}/${name}.html`, (err) => {
         if(err) throw err;
-        console.log(`Move ${urls[i].name}.html complete.`);
+        console.log(`Move ${name}.html complete.`);
         });
       });
     }); 
