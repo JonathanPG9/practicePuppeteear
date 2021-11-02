@@ -8,7 +8,7 @@ const fs = require('fs'),
 
 (() => {
   for (let i = 0; i < dataLength; i++) {
-    const command = `curl ${urls[i]?.url}`
+    const command = `curl ${urls[i]?.url}`;
     const name = urls[i].name;
     exec(command, (err, stdout) => {
       if(err) throw err;
