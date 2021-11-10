@@ -8,4 +8,4 @@ of each page in question, then we iterate this information and with the exec fun
 #
 ### NPM scripts
 * npm run start
-* npx server dist
+* npx serve dist
