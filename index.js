@@ -11,22 +11,22 @@ let count = 0; // the purpose of the count variable is just to test the same url
     const command = `curl ${urls[i]?.url}`,
           name = urls[i].name,
           domainName = `${urls[i]?.url.split("/")[2]}`,
-          nameFolder = `${dist}/${domainName}`;
-    if (!fs.existsSync(nameFolder)){
-        fs.mkdirSync(nameFolder);
+          folderName = `${dist}/${domainName}`;
+    if (!fs.existsSync(folderName)){
+        fs.mkdirSync(folderName);
     };
     exec(command, (err, stdout) => {
       if (err) throw err;
       if(stdout.indexOf("mapbox") != -1 ) {
-          if (!fs.existsSync(`${nameFolder}/mapbox`)){
-            fs.mkdirSync(`${nameFolder}/mapbox`);
+          if (!fs.existsSync(`${folderName}/mapbox`)){
+            fs.mkdirSync(`${folderName}/mapbox`);
         };
-        fs.writeFile(`${nameFolder}/mapbox/${name}${count++}.html`, stdout, (err) => {
+        fs.writeFile(`${folderName}/mapbox/${name}${count++}.html`, stdout, (err) => {
           if (err) throw err;
         });
       }
       else {
-        fs.writeFile(`${nameFolder}/${name}.html`, stdout, (err) => {
+        fs.writeFile(`${folderName}/${name}.html`, stdout, (err) => {
           if (err) throw err;
         });
       };
