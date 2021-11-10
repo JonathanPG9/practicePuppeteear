@@ -9,14 +9,25 @@ const fs = require('fs'),
 (() => {
   for (let i = 0; i < dataLength; i++) {
     const command = `curl ${urls[i]?.url}`,
-          name = urls[i].name;
+          name = urls[i].name,
+          domainName = `${urls[i]?.url.split("/")[2]}`,
+          nameFolder = `${dist}/${domainName}`;
+    if (!fs.existsSync(nameFolder)){
+        fs.mkdirSync(nameFolder);
+    }
     exec(command, (err, stdout) => {
       if (err) throw err;
-      console.log(`stdout: ${stdout}`);
-      fs.writeFile(`${dist}/${name}.html`, stdout, (err) => {
-        if (err) throw err;
-        console.log(`${name}.html created`);
-      });
+      if(stdout.indexOf("mapbox") != -1 ) {
+        fs.mkdirSync(`${nameFolder}/mapbox`);
+        fs.writeFile(`${nameFolder}/mapbox/${name}.html`, stdout, (err) => {
+          if (err) throw err;
+        });
+      }
+      else { 
+        fs.writeFile(`${nameFolder}/${name}.html`, stdout, (err) => {
+          if (err) throw err;
+        });
+      } 
     });
   }
 })();
