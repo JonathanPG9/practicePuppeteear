@@ -4,8 +4,10 @@ const fs = require('fs'),
       exec = require('child_process').exec,
       dist = path.join(__dirname,'/dist'),
       urls = data.urls,
-      dataLength = data.urls.length;
-let count = 0; // the purpose of the count variable is just to test the same url with mapbox because writeFile overwrites the file with the same name
+      dataLength = data.urls.length,
+      classNames = ["mapbox","usat-interactive-graphic"]
+      classNamesLength = classNames.length;
+// let count = 0; // the purpose of the count variable is just to test the same url with mapbox because writeFile overwrites the file with the same name
 (() => {
   for (let i = 0; i < dataLength; i++) {
     const command = `curl ${urls[i]?.url}`,
@@ -17,18 +19,27 @@ let count = 0; // the purpose of the count variable is just to test the same url
     };
     exec(command, (err, stdout) => {
       if (err) throw err;
-      if(stdout.indexOf("mapbox") != -1 ) {
+      let index = 0
+      while(classNamesLength > index) {
+        if(stdout.includes(classNames[index])) {
           if (!fs.existsSync(`${folderName}/mapbox`)){
             fs.mkdirSync(`${folderName}/mapbox`);
+          };
+          if(fs.existsSync(`${folderName}/${name}.html`)) {
+            fs.renameSync(`${folderName}/${name}.html`,`${folderName}/mapbox/${name}.html`)
+          }
+          else {
+            fs.writeFile(`${folderName}/mapbox/${name}.html`, stdout, (err) => {
+              if (err) throw err;
+            });
+          }
+        }
+        else {
+          fs.writeFile(`${folderName}/${name}.html`, stdout, (err) => {
+          if (err) throw err;
+        });
         };
-        fs.writeFile(`${folderName}/mapbox/${name}${count++}.html`, stdout, (err) => {
-          if (err) throw err;
-        });
-      }
-      else {
-        fs.writeFile(`${folderName}/${name}.html`, stdout, (err) => {
-          if (err) throw err;
-        });
+        index++
       };
     });
   }
