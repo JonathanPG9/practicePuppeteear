@@ -2,38 +2,45 @@ const fs = require('fs'),
       data = require('./urls.json'),
       path = require('path'),
       exec = require('child_process').exec,
-      dist = path.join(__dirname,'/dist'),
-      urls = data.urls,
-      dataLength = data.urls.length,
+      static = path.join(__dirname,'/static'),
+      {urls} = require("./urlsString");
+      dataLength = urls.length,
       classNames = ["mapbox","usat-interactive-graphic"],
       classNamesLength = classNames.length;
-// let count = 0; // the purpose of the count variable is just to test the same url with mapbox because writeFile overwrites the file with the same name
 (() => {
-  for (let i = 0; i < dataLength; i++) {
-    const command = `curl ${urls[i]?.url}`,
-          name = urls[i].name,
-          domainName = `${urls[i]?.url.split('/')[2]}`,
-          folderName = `${dist}/${domainName}`;
+  for (let i = 1; i < dataLength; i++) {
+    const command = `curl ${urls[i]}`,
+          domainName = `${urls[i]?.split('.')[1]}`,
+          pathUrl = `${urls[i]?.split('/')[3]}`,
+          folderName = `${static}/${domainName}`,
+          pathFolder = `${folderName}/${pathUrl}`;
     if (!fs.existsSync(folderName)) {
-      fs.mkdirSync(folderName);
+      fs.mkdir(folderName,(err) => {
+        if(err) throw err
+      })
+    }
+    if (!fs.existsSync(pathFolder)) {
+      fs.mkdir(pathFolder,(err) => {
+        if(err) throw err
+      })
     }
     exec(command, (err, stdout) => {
       if (err) throw err;
       let index = 0;
       while (classNamesLength > index) {
         if (stdout.includes(classNames[index])) {
-          if (!fs.existsSync(`${folderName}/${classNames[index]}`)) {
-            fs.mkdirSync(`${folderName}/${classNames[index]}`);
+          if (!fs.existsSync(`${pathFolder}/${classNames[index]}`)) {
+            fs.mkdirSync(`${pathFolder}/${classNames[index]}`);
           }
-          if (fs.existsSync(`${folderName}/${name}.html`)) {
-            fs.renameSync(`${folderName}/${name}.html`, `${folderName}/${classNames[index]}/${name}.html`);
+          if (fs.existsSync(`${pathFolder}/index.html`)) {
+            fs.renameSync(`${pathFolder}/index.html`, `${pathFolder}/${classNames[index]}/index.html`);
           } else {
-            fs.writeFile(`${folderName}/mapbox/${name}.html`, stdout, (err) => {
+            fs.writeFile(`${pathFolder}/mapbox/index.html`, stdout, (err) => {
               if (err) throw err;
             });
           }
         } else {
-          fs.writeFile(`${folderName}/${name}.html`, stdout, (err) => {
+          fs.writeFile(`${pathFolder}/index.html`, stdout, (err) => {
             if (err) throw err;
           });
         }
