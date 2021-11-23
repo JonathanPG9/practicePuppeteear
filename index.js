@@ -1,5 +1,4 @@
 const fs = require('fs'),
-      data = require('./urls.json'),
       path = require('path'),
       exec = require('child_process').exec,
       static = path.join(__dirname,'/static'),
@@ -25,7 +24,7 @@ const fs = require('fs'),
       })
     }
     exec(command, (err, stdout) => {
-      if (err) throw err;
+      if (err) console.log(err)
       let index = 0;
       while (classNamesLength > index) {
         if (stdout.includes(classNames[index])) {
@@ -35,7 +34,7 @@ const fs = require('fs'),
           if (fs.existsSync(`${pathFolder}/index.html`)) {
             fs.renameSync(`${pathFolder}/index.html`, `${pathFolder}/${classNames[index]}/index.html`);
           } else {
-            fs.writeFile(`${pathFolder}/mapbox/index.html`, stdout, (err) => {
+            fs.writeFile(`${pathFolder}/${classNames[index]}/index.html`, stdout, (err) => {
               if (err) throw err;
             });
           }
