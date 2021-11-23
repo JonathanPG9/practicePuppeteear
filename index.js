@@ -22,11 +22,11 @@ const fs = require('fs'),
       let index = 0;
       while (classNamesLength > index) {
         if (stdout.includes(classNames[index])) {
-          if (!fs.existsSync(`${folderName}/mapbox`)) {
-            fs.mkdirSync(`${folderName}/mapbox`);
+          if (!fs.existsSync(`${folderName}/${classNames[index]}`)) {
+            fs.mkdirSync(`${folderName}/${classNames[index]}`);
           }
           if (fs.existsSync(`${folderName}/${name}.html`)) {
-            fs.renameSync(`${folderName}/${name}.html`, `${folderName}/mapbox/${name}.html`);
+            fs.renameSync(`${folderName}/${name}.html`, `${folderName}/${classNames[index]}/${name}.html`);
           } else {
             fs.writeFile(`${folderName}/mapbox/${name}.html`, stdout, (err) => {
               if (err) throw err;
