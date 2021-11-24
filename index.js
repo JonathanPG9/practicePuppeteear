@@ -14,22 +14,22 @@ const fs = require('fs'),
       folderName = `${static}/${domainName}`,
       pathFolder = `${folderName}/${pathUrl}`;
     fs.stat(folderName, (err) => {
-      if (err.code === null) return console.log(`${folderName} exist`); // folder/file exist
+      if (err.code === null) return console.log(`${folderName} exist`); // folder exist
       if (err.code === 'ENOENT') {
-        // folder/file does not exist
+        // folder does not exist
         fs.mkdir(folderName, () => {
           fs.mkdir(pathFolder, (err) => {
-            if (err) console.log(err)
+            if (err) console.log(err);
             exec(command, (err, stdout, stderr) => {
               if (err) {
                 console.log(err)
-                const message = `${command}\n ${stderr}`
+                const message = `${command}\n ${stderr}`;
                 fs.appendFile(`error.txt`, message, (error) => {
-                  if (error) console.log(error)
+                  if (error) console.log(error);
                 });
               }
               fs.writeFile(`${pathFolder}/index.html`, stdout, (err) => {
-                if (err) console.log(err)
+                if (err) console.log(err);
               });
             });
           })
