@@ -32,9 +32,9 @@ const fs = require('fs'),
                 if (err) console.log(err);
               });
             });
-          })
-        })
-      }
-    })
+          });
+        });
+      };
+    });
   }
 })();
