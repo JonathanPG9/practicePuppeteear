@@ -4,7 +4,7 @@ const fs = require('fs'),
       destinationFolder = path.join(__dirname,'/static'),
       {urls} = require("./urlsString");
       dataLength = urls.length,
-      classNames = ["mapbox","usat-interactive-graphic"],
+      classNames = ["usat-interactive-graphic",],
       classNamesLength = classNames.length;
 let message = "";
 (() => {
@@ -23,10 +23,27 @@ let message = "";
       }
       fs.mkdir(pathFolder, { recursive: true }, (err) => {
         if (err) console.log(err);
-        fs.writeFile(`${pathFolder}/index.html`, stdout, (err) => {
-          if (err) console.log(err);
-        });
+        let index = 0;
+          while (classNamesLength > index) {
+            const classFolder = classNames[index];
+            if (stdout.includes(classFolder)) {
+              fs.mkdir(`${pathFolder}/${classFolder}`, (err) => {
+                if (err) console.log(err)
+                fs.writeFile(`${pathFolder}/${classFolder}/index.html`, stdout, err => {
+                  if(err) console.log(err)
+                })
+              })
+            }
+            else {
+              fs.writeFile(`${pathFolder}/index.html`, stdout, (err) => {
+                if (err) console.log(err);
+              });
+            }
+            index++;
+          }
       })
     })
   }
 })();
+
+ 
