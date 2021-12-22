@@ -1,4 +1,4 @@
-const firstUrls = `
+const firstStr = `
 https://static.alamogordonews.com/advertisewithus/
 https://static.alamogordonews.com/classifiedshelp/
 https://static.alamogordonews.com/lettertoeditor/
@@ -1650,7 +1650,7 @@ https://static.zanesvilletimesrecorder.com/rss/
 https://static.zanesvilletimesrecorder.com/thank-you/
 https://static.zanesvilletimesrecorder.com/zanesvilletimesrecorderiheart/
 `
-const secondUrls = `
+const secondStr = `
 https://www.app.com/pages/interactives/homesinyork2/
 https://www.argusleader.com/pages/interactives/food-falls-bracket-challenge/
 https://www.argusleader.com/pages/interactives/food-falls-bracket-challenge1/
@@ -2248,7 +2248,7 @@ https://www.zanesvilletimesrecorder.com/pages/interactives/voter-guide/candidate
 https://www.zanesvilletimesrecorder.com/pages/interactives/voter-guide/sample-ballot/
 https://www.zanesvilletimesrecorder.com/pages/interactives/voter-guide/search-results/
 `
-const thirdUrls = `
+const thirdStr = `
 https://www.usatoday.com/pages/interactives/082016-osiris-graphic/
 https://www.usatoday.com/pages/interactives/100000-lives-lost-honoring-coronavirus-victims/
 https://www.usatoday.com/pages/interactives/1619-african-slavery-history-maps-routes-interactive-graphic/
@@ -2487,26 +2487,49 @@ https://www.usatoday.com/pages/interactives/womens-march-photos/
 https://www.usatoday.com/pages/interactives/your-take/
 https://www.usatoday.com/pages/interactives/zika-graphic/
 `
-const test = `
-https://www.usatoday.com/pages/interactives/storm-tracker/
-https://www.usatoday.com/pages/interactives/graphics/afghanistan-in-memoriam/
-https://www.usatoday.com/pages/interactives/larry-nassar-timeline/
-https://www.azcentral.com/pages/interactives/news/local/arizona-data/arizona-government-salary-database/
-https://www.jsonline.com/pages/interactives/milwaukee-tv-listings/
-https://www.knoxnews.com/pages/interactives/lowest-gas-prices-in-knoxville/
-https://static.cincinnati.com/classifiedshelp/
-https://static.tennessean.com/rss/
+const testStr = `
+https://static.greenbaypressgazette.com/en/adchoices/
+https://static.greenbaypressgazette.com/en/privacy/
+https://static.greenbaypressgazette.com/en/terms/
 https://static.indystar.com/en/aboutus/
+https://static.indystar.com/en/adchoices/
+https://static.indystar.com/en/apps/
+https://static.indystar.com/en/blog-question-submission/
+https://static.indystar.com/en/contact/
+https://static.indystar.com/en/counter/
+https://static.indystar.com/en/follow/
+https://static.indystar.com/en/help/
+https://static.indystar.com/en/marketing/holidaycontest/
+https://static.indystar.com/en/ourcommunity/
+https://static.indystar.com/en/placead/
+https://static.indystar.com/en/placead/announcements/
+https://static.indystar.com/en/placead/auctions/
+https://static.indystar.com/en/placead/celebrations/
+https://static.indystar.com/en/placead/churches/
+https://static.indystar.com/en/placead/classifieds-submission/
+https://static.indystar.com/en/placead/customprint/
+https://static.indystar.com/en/placead/getaway-guide/
+https://static.indystar.com/en/placead/jobs/
+https://static.indystar.com/en/placead/legal-notices/
+https://static.indystar.com/en/placead/memorials/
+https://static.indystar.com/en/placead/simplifieds/
+https://static.indystar.com/en/presstours/
+https://static.indystar.com/en/privacy/
+https://static.indystar.com/en/pulliam/pulliamapply/
+https://static.indystar.com/en/rights/
+https://static.indystar.com/en/rss/
+https://static.indystar.com/en/submitletter/
+https://static.indystar.com/en/terms/
 `
 
-const firstUrls = firstUrls.replace(/https/g,",https").split(",");
-const secondUrls = secondUrls.replace(/https/g,",https").split(",");
-const thirdUrls = thirdUrls.replace(/https/g,",https").split(",");
-const test = test.replace(/https/g,",https").split(",");
+const urls = firstStr.replace(/https/g,",https").split(",");
+const secondUrls = secondStr.replace(/https/g,",https").split(",");
+const thirdUrls = thirdStr.replace(/https/g,",https").split(",");
+const test = testStr.replace(/https/g,",https").split(",");
 
 
 module.exports = {
-  firstUrls: firstUrls,
+  urls: urls,
   secondUrls: secondUrls,
   thirdUrls: thirdUrls,
   test: test

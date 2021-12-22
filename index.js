@@ -1,17 +1,17 @@
 const fs = require('fs'),
       path = require('path'),
       exec = require('child_process').exec,
-      destinationFolder = path.join(__dirname,'/static'),
-      {urls} = require("./urls");
-      dataLength = urls.length,
+      destinationFolder = path.join(__dirname,'/rescraped'),
+      {test} = require("./urls");
+      dataLength = test.length,
       classNames = ["usat-interactive-graphic",],
       classNamesLength = classNames.length;
 let message = "";
 (() => {
   for (let i = 1; i < dataLength; i++) {
-    const command = `curl ${urls[i]}`,
-          domainName = `${urls[i]?.split('.')[1]}`,
-          pathUrl = `${urls[i].slice(urls[i].indexOf(".com/") + 5, urls[i].length - 2)}`,
+    const command = `curl ${test[i]}`,
+          domainName = `${test[i]?.split('.')[1]}`,
+          pathUrl = `${test[i].slice(test[i].indexOf(".com/") + 5, test[i].length - 2)}`,
           pathFolder = `${destinationFolder}/${domainName}/${pathUrl}`;
     exec(command, (err, stdout) => {
       if (err) {
